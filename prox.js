@@ -1,9 +1,9 @@
 var net = require('net');
-var timeout = 20000;//³¬Ê±
-var listenPort = 800;//¼àÌı¶Ë¿Ú
+var timeout = 20000;//è¶…æ—¶
+var listenPort = 800;//ç›‘å¬ç«¯å£
 
 var server = net.createServer(function(socket){
-    // ÎÒÃÇ»ñµÃÒ»¸öÁ¬½Ó - ¸ÃÁ¬½Ó×Ô¶¯¹ØÁªÒ»¸ösocket¶ÔÏó
+    // æˆ‘ä»¬è·å¾—ä¸€ä¸ªè¿æ¥ - è¯¥è¿æ¥è‡ªåŠ¨å…³è”ä¸€ä¸ªsocketå¯¹è±¡
     console.log('connect: ' +
         socket.remoteAddress + ':' + socket.remotePort+", "+socket["host"]);
     for(var i in socket){
@@ -14,25 +14,25 @@ var server = net.createServer(function(socket){
 
     socket.setEncoding('binary');
 
-    //³¬Ê±ÊÂ¼ş
+    //è¶…æ—¶äº‹ä»¶
 //    socket.setTimeout(timeout,function(){
-//        console.log('Á¬½Ó³¬Ê±');
+//        console.log('è¿æ¥è¶…æ—¶');
 //        socket.end();
 //    });
 
-    //½ÓÊÕµ½Êı¾İ
+    //æ¥æ”¶åˆ°æ•°æ®
     socket.on('data',function(data){
 
         console.log('recv:' + data);
 
     });
 
-    //Êı¾İ´íÎóÊÂ¼ş
+    //æ•°æ®é”™è¯¯äº‹ä»¶
     socket.on('error',function(exception){
         console.log('socket error:' + exception);
         socket.end();
     });
-    //¿Í»§¶Ë¹Ø±ÕÊÂ¼ş
+    //å®¢æˆ·ç«¯å…³é—­äº‹ä»¶
     socket.on('close',function(data){
         console.log('close: ' +
             socket.remoteAddress + ' ' + socket.remotePort);
@@ -44,12 +44,12 @@ var server = net.createServer(function(socket){
 	socket.end();
 }).listen(listenPort);
 
-//·şÎñÆ÷¼àÌıÊÂ¼ş
+//æœåŠ¡å™¨ç›‘å¬äº‹ä»¶
 server.on('listening',function(){
     console.log("server listening:" + server.address().port);
 });
 
-//·şÎñÆ÷´íÎóÊÂ¼ş
+//æœåŠ¡å™¨é”™è¯¯äº‹ä»¶
 server.on("error",function(exception){
     console.log("server error:" + exception);
 }); 
