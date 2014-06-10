@@ -8,7 +8,7 @@ var server = net.createServer(function(socket){
         socket.remoteAddress + ':' + socket.remotePort+", "+socket["host"]);
     for(var i in socket){
 		if( typeof(socket[i])== "object"){
-			 console.log(i+":"+socket[i]);
+			 console.log(i+":---:"+socket[i]);
 		}
 	}
 
@@ -40,8 +40,19 @@ var server = net.createServer(function(socket){
     });
 
 
-    socket.write("fdsfdsfsd");
-	socket.end();
+
+		var REMOTE_ADDR="www.baidu.com";
+        var serviceSocket = new net.Socket();
+        serviceSocket.connect(80, REMOTE_ADDR, function (msg) {
+            console.log('>> From proxy to remote');
+            serviceSocket.write(msg);
+        });
+        serviceSocket.on("data", function (data) {
+            console.log('<< From remote to proxy');
+            socket.write(data);
+            console.log('>> From proxy to client');
+        });
+	//socket.end();
 }).listen(listenPort);
 
 //服务器监听事件
